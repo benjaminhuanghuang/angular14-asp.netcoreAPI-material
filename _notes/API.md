@@ -45,5 +45,9 @@ Add dependencies
     AutoMapper
 ```
 
+Create DTOs
+ 
+Create Mapping Profile
 
+Inject mapper into Program.cs
 ## 

@@ -1,6 +1,7 @@
 using EmployeeAPI.Data;
 using EmployeeAPI.Services.Contract;
 using EmployeeAPI.Services.Implementation;
+using EmployeeAPI.Utilities;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,9 @@ builder.Services.AddDbContext<DbEmployeeContext>(options =>
 // Inject service
 builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+
+// Inject Mapper
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 var app = builder.Build();
 
