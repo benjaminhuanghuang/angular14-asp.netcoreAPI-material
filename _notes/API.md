@@ -10,7 +10,7 @@ Microsoft.EntityFrameworkCore.Tools
 ## Entity Framework Database first
 Run command at PackageManager Console, create models and dbcontext
 ```
-    Scaffold-DbContext "Server=(local) Database=DbEmployee, Integrated Security=true" Microsoft.EntityFrameworkCore.SqlServer -OutPutDir Models
+    Scaffold-DbContext "server=BENTKPAD\SQLEXPRESS; DataBase=DBEmployee; Integrated Security=true; TrustServerCertificate=True" Microsoft.EntityFrameworkCore.SqlServer -OutPutDir Models
 ```
 
 Move Connection string to appsettings.json
@@ -18,7 +18,7 @@ Move Connection string to appsettings.json
     # appsettings.json
 
     "ConnectionStrings": {
-        "MyConnectionString": "server=BENTKPAD\\SQLEXPRESS;database=MyDb;Trusted_Connection=true;TrustServerCertificate=True"
+        "sqlConnection": "server=localhost\\SQLEXPRESS;database=MyDb;Trusted_Connection=true;TrustServerCertificate=True"
     }
 ```
 
