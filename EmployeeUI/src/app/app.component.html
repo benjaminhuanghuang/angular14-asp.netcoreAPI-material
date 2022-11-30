@@ -1,4 +1,4 @@
-<div>
+<div style="width: 80%;margin-top:50px; margin:auto; padding: 2-px";>
   <h1>List Employees</h1>
   <button mat-raised-button color="primary">
     <mat-icon></mat-icon> New Employee
@@ -9,6 +9,12 @@
     <input matInput (keyup)="applyFilter($event)" placeholder="write something" #input>
   </mat-form-field>
   <div class="mat-elevation-z8">
-    <!-- <table mat-table [dataSrouce]="dataEmployee" matSort></table> -->
+    <table mat-table [dataSource]="dataEmployee" matSort>
+      <ng-container matColumnDef="FullName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Full Name</th>
+        <td ></td>
+      </ng-container>
+
+    </table>
   </div>
 </div>
