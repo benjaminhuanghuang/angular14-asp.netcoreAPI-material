@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using EmployeeAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace EmployeeAPI.Models;
+namespace EmployeeAPI.Data;
 
 public partial class DbEmployeeContext : DbContext
 {

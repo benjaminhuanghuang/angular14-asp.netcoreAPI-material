@@ -1,4 +1,6 @@
-using EmployeeAPI.Models;
+using EmployeeAPI.Data;
+using EmployeeAPI.Services.Contract;
+using EmployeeAPI.Services.Implementation;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,8 +12,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Inject DbEmployeeContext
 builder.Services.AddDbContext<DbEmployeeContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("sqlConnection")));
+
+// Inject service
+builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 
 var app = builder.Build();
 

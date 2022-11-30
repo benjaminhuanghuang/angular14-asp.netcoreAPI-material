@@ -28,3 +28,22 @@ Inject MyDbContext in Program.cs
     builder.Services.AddDbContext<MyDbContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("MyConnectionString")));
 ```
+
+
+## Create services
+
+Inject services in Program.cs
+```
+builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+```
+
+## Auto Mapper
+Add dependencies
+```
+    AutoMapper.Extensions.Microsoft.DependencyInjection
+    AutoMapper
+```
+
+
+## 
