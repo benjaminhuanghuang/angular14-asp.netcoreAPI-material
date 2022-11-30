@@ -61,10 +61,11 @@ namespace EmployeeAPI.Controllers
 
                 Employee _employeeCreated = await this._employeeServcie.Add(_model);
 
-                if(_employeeCreated.Id != 0)
+                if (_employeeCreated.Id != 0)
                 {
                     _response = new ResponseApi<EmployeeDTO>() { Status = true, Msg = "Ok", Value = _mapper.Map<EmployeeDTO>(_employeeCreated) };
-                }else
+                }
+                else
                 {
                     _response = new ResponseApi<EmployeeDTO>() { Status = false, Msg = "Can not create" };
                 }
@@ -72,7 +73,54 @@ namespace EmployeeAPI.Controllers
             }
             catch (Exception ex)
             {
-                _response = new ResponseApi<List<EmployeeDTO>>() { Status = false, Msg = ex.Message };
+                _response = new ResponseApi<EmployeeDTO>() { Status = false, Msg = ex.Message };
+                return StatusCode(StatusCodes.Status500InternalServerError, _response);
+            }
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Put(EmployeeDTO request)
+        {
+            ResponseApi<EmployeeDTO> _response = new ResponseApi<EmployeeDTO>();
+            try
+            {
+                Employee _model = _mapper.Map<Employee>(request);
+
+                Employee _employeeEdited = await this._employeeServcie.Update(_model);
+                _response = new ResponseApi<EmployeeDTO>() { Status = true, Msg = "Ok", Value = _mapper.Map<EmployeeDTO>(_employeeEdited) };
+
+                return StatusCode(StatusCodes.Status200OK, _response);
+            }
+            catch (Exception ex)
+            {
+                _response = new ResponseApi<EmployeeDTO>() { Status = false, Msg = ex.Message };
+                return StatusCode(StatusCodes.Status500InternalServerError, _response);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            ResponseApi<bool> _response = new ResponseApi<bool>();
+            try
+            {
+                Employee _employeeFound = await this._employeeServcie.Get(id);
+                bool deleted = await this._employeeServcie.Delete(_employeeFound);
+
+                if(deleted)
+                {
+                    _response = new ResponseApi<bool>() { Status = true, Msg = "Ok" };
+                }
+                else
+                {
+                    _response = new ResponseApi<bool>() { Status = false, Msg = "No deleted"};
+                }
+
+                return StatusCode(StatusCodes.Status200OK, _response);
+            }
+            catch (Exception ex)
+            {
+                _response = new ResponseApi<bool>() { Status = false, Msg = ex.Message };
                 return StatusCode(StatusCodes.Status500InternalServerError, _response);
             }
         }

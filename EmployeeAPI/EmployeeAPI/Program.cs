@@ -24,6 +24,15 @@ builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 // Inject Mapper
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
+// CROS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("PolicyToApp", app =>
+    {
+        app.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -32,6 +41,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("PolicyToApp");
 
 app.UseAuthorization();
 
