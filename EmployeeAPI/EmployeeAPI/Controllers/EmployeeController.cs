@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EmployeeAPI.DTOs;
+using EmployeeAPI.Models;
 using EmployeeAPI.Services.Contract;
 using EmployeeAPI.Services.Implementation;
 using EmployeeAPI.Utilities;
@@ -28,11 +29,11 @@ namespace EmployeeAPI.Controllers
             ResponseApi<List<EmployeeDTO>> _response = new ResponseApi<List<EmployeeDTO>>();
             try
             {
-                var departmantList = await _employeeServcie.GetList();
+                var employeeList = await _employeeServcie.GetList();
 
-                if (departmantList.Count > 0)
+                if (employeeList.Count > 0)
                 {
-                    var dtoList = _mapper.Map<List<EmployeeDTO>>(departmantList);
+                    var dtoList = _mapper.Map<List<EmployeeDTO>>(employeeList);
 
                     _response = new ResponseApi<List<EmployeeDTO>>() { Status = true, Msg = "Ok", Value = dtoList };
                 }
@@ -48,8 +49,32 @@ namespace EmployeeAPI.Controllers
                 _response = new ResponseApi<List<EmployeeDTO>>() { Status = false, Msg = ex.Message };
                 return StatusCode(StatusCodes.Status500InternalServerError, _response);
             }
+        }
 
+        [HttpPost]
+        public async Task<IActionResult> Post(EmployeeDTO request)
+        {
+            ResponseApi<EmployeeDTO> _response = new ResponseApi<EmployeeDTO>();
+            try
+            {
+                Employee _model = _mapper.Map<Employee>(request);
 
+                Employee _employeeCreated = await this._employeeServcie.Add(_model);
+
+                if(_employeeCreated.Id != 0)
+                {
+                    _response = new ResponseApi<EmployeeDTO>() { Status = true, Msg = "Ok", Value = _mapper.Map<EmployeeDTO>(_employeeCreated) };
+                }else
+                {
+                    _response = new ResponseApi<EmployeeDTO>() { Status = false, Msg = "Can not create" };
+                }
+                return StatusCode(StatusCodes.Status200OK, _response);
+            }
+            catch (Exception ex)
+            {
+                _response = new ResponseApi<List<EmployeeDTO>>() { Status = false, Msg = ex.Message };
+                return StatusCode(StatusCodes.Status500InternalServerError, _response);
+            }
         }
     }
 }
