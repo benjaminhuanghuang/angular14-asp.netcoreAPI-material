@@ -46,8 +46,6 @@ namespace EmployeeAPI.Controllers
                 _response = new ResponseApi<List<DepartmentDTO>>() { Status = false, Msg = ex.Message };
                 return StatusCode(StatusCodes.Status500InternalServerError, _response);
             }
-
-
         }
     }
 }
