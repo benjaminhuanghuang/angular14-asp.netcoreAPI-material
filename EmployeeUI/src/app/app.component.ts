@@ -12,7 +12,7 @@ import { EmployeeService } from './Services/employee.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, AfterViewInit {
-  displayedColumn: string[] = ["FullName", "Department", "Salary", "HireDate", "Actions"];
+  displayedColumns: string[] = ["FullName", "Department", "Salary", "HireDate", "Actions"];
   dataEmployee = new MatTableDataSource<Employee>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;

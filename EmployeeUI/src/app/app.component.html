@@ -1,4 +1,4 @@
-<div style="width: 80%;margin-top:50px; margin:auto; padding: 2-px";>
+<div style="width: 80%;margin-top:50px; margin:auto; padding: 2-px" ;>
   <h1>List Employees</h1>
   <button mat-raised-button color="primary">
     <mat-icon></mat-icon> New Employee
@@ -12,9 +12,41 @@
     <table mat-table [dataSource]="dataEmployee" matSort>
       <ng-container matColumnDef="FullName">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Full Name</th>
-        <td ></td>
+        <td mat-cell *matCellDef="let row">{{row.fullName}}</td>
+      </ng-container>
+      <ng-container matColumnDef="Department">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Department</th>
+        <td mat-cell *matCellDef="let row">{{row.departmentName}</td>
       </ng-container>
 
+      <ng-container matColumnDef="Salary">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Salary</th>
+        <td mat-cell *matCellDef="let row">{{row.salary}</td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="HireDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Hire Date</th>
+        <td mat-cell *matCellDef="let row">{{row.hireDate}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="Actions">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+        <td mat-cell *matCellDef="let row">
+          <button mat-icon color="primary">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon color="warn">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <!-- <tr mat-row *matRowDef="left: row columns:displayedColumns"></tr> -->
+
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4"> No data matching the filter {{input.value}}</td>
+      </tr>
     </table>
   </div>
 </div>
